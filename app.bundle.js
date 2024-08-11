@@ -11956,7 +11956,8 @@ if(e===Mat.ANY||e===Mat.LABEL||e===Mat.UNUSED_STONE||e===Mat.FLINT)return false
 return true})
 var USAGE_GIVE="Usage: /give [count] <ID> [material 1] [material 2] [attr3]\n  Examples: /give 10 snow\n    /give hatchet stone dark_wood"
 cmd_parse.register({cmd:"give",help:"Grant an item",access_run:["world_areabuilder"],usage:"$HELP\n"+USAGE_GIVE,func:function func(e,t){if(!main.omp)return t(null,"Error: /give is only allowed when in a world")
-if(adventureMode()&&!cmd_parse.checkAccess(["world_owner"])&&!engine.DEBUG)return t("Not allowed in Lost Frontier worlds")
+if(adventureMode()&&!cmd_parse.checkAccess(["sysadmin"])&&!engine.DEBUG)return t("Not allowed in Lost Frontier worlds")
+if(!giveItemsAllowed()&&!isElevated())return t("Access denied.")
 if(inventoryLocked(INV_PLAYER))return t("Inventory locked")
 function usage(e){t((e?"Error: "+e+"\n":"")+USAGE_GIVE)}var r=e.split(" ")
 if(!Number(r[0]))r.splice(0,0,"1")
